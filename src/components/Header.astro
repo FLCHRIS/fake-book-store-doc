@@ -1,0 +1,34 @@
+---
+import Arrow from "../icons/Arrow.astro";
+---
+
+<header class="max-w-4xl mx-auto px-5 py-12 md:grid md:gap-4 md:grid-cols-2 md:px-7 md:py-16">
+  <div>
+    <h1 class="text-4xl font-bold text-white md:text-5xl">
+      Fake Book Store 
+      <span class="bg-gradient-to-bl from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+        API
+      </span>
+    </h1>
+    <p class="mt-5 text-neutral-400 md:text-lg md:mt-6">
+      Fake Bookstore Rest API for Your Bookstore Website Prototype.
+    </p>
+    <a
+      href="/doc"
+      class="block w-max mt-4 bg-gradient-to-br from-cyan-500 to-blue-500 p-[2px] rounded-lg hover:shadow-lg hover:shadow-cyan-500/40 hover:scale-110 transition-all"
+    >
+      <span
+        class="bg-neutral-900 block px-4 py-2 text-white rounded-lg md:text-lg"
+      >
+        Read Doc
+        <Arrow class="size-5 inline md:size-6" />
+      </span>
+    </a>
+  </div>
+  <img
+    src="./images/ilustration_header.svg"
+    alt=""
+    aria-hidden="true"
+    class="w-full max-w-sm ml-auto hidden md:block hover:animate-pulse"
+  />
+</header>
