@@ -1,0 +1,44 @@
+---
+import { Code } from 'astro:components';
+
+const code = `fetch('https://fake-book-store-api.onrender.com/api/books?limit=2')
+  .then( res => res.json())
+  .then( data => console.log(data))
+  .catch( error => console.error(error))
+`;
+
+const response = `[
+  {
+    "category": {
+      "id": "65a86faecc61cd97ff280d42",
+      "name": "Fantasy"
+    },
+    "_id": "65a9a8ab22d2eb408ca77c8c",
+    "name": "When the Moon Hatched",
+    "description": "The Creators did not expect their beloved dragons to sail skyward upon their end. To curl into balls just beyond gravity’s grip, littering the sky with tombstones. With moons.",
+    "number_of_pages": 730,
+    "language": "English",
+    "publication_date": "2024-01-13T00:00:00.000Z",
+    "dimensions": "5 x 1.6 x 8 inches",
+    "image": "https://fake-book-store-api.onrender.com/images/P1zL9oX.jpg",
+    "price": 5.99,
+    "author": "Sarah A. Parker"
+  }
+]
+`;
+---
+
+<section class="pt-12">
+  <h2 class="text-white text-xl md:text-2xl font-medium">
+    Example code
+  </h2>
+  <div class="mt-5 overflow-hidden rounded-lg">
+    <Code code={code} lang="js" theme="material-theme-ocean" wrap />
+  </div>
+  <h3 class="text-white text-xl md:text-2xl font-medium my-5">
+    Response
+  </h3>
+  <div class="mt-5 overflow-hidden rounded-lg">
+    <Code code={response} lang="js" theme="material-theme-ocean" wrap />
+  </div>
+</section>
