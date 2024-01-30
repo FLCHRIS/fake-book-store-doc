@@ -1,0 +1,28 @@
+---
+import Logo from "../icons/Logo.astro";
+import Github from "../icons/Github.astro";
+---
+
+<nav 
+  class="sticky top-0 z-10 backdrop-blur-md max-w-4xl mx-auto p-5 grid grid-flow-col justify-between items-center md:px-7 md:py-6"
+>
+  <a 
+    href="/"
+    aria-label="Go to home"
+  >
+    <Logo class="w-16 hover:scale-110 transition-transform md:w-20" />
+  </a>
+
+  <a 
+    href="https://github.com/FLCHRIS/fake-book-store-api" 
+    target="_blank"
+    class="bg-gradient-to-br from-cyan-500 to-blue-500 p-[2px] rounded-lg hover:shadow-lg hover:shadow-cyan-300/40 transition-all hover:scale-110"
+  >
+    <span
+      class="text-sm grid grid-flow-col gap-1 p-1 bg-neutral-950 text-white rounded-lg md:text-base md:p-2"
+    >
+      <Github class="size-5 md:size-6" />
+      GitHub
+    </span>
+  </a>
+</nav>
