@@ -1,0 +1,76 @@
+---
+import ItemNavDoc from "./ItemNavDoc.astro";
+const data = [
+  {
+    title: {
+      href: "#user",
+      text: "User",
+    },
+    links: [
+      {
+        href: "#userSchema",
+        text: "User schema",
+      },
+      {
+        href: "#getAllUser",
+        text: "Get all users",
+      },
+      {
+        href: "#getASingleUser",
+        text: "Get a single user",
+      },
+      {
+        href: "#AddUser",
+        text: "Add new user",
+      },
+      {
+        href: "#updateUser",
+        text: "Update a user",
+      },
+      {
+        href: "#deleteUser",
+        text: "Delete a user",
+      },
+    ],
+  },{
+    title: {
+      href: "#book",
+      text: "Book",
+    },
+    links: [
+      {
+        href: "#bookSchema",
+        text: "Book schema",
+      },
+      {
+        href: "#getAllBook",
+        text: "Get all books",
+      },
+      {
+        href: "#getSingleBook",
+        text: "Get a single book",
+      },
+      {
+        href: "#AddBook",
+        text: "Add new book",
+      },
+      {
+        href: "#updateBook",
+        text: "Update a book",
+      },
+      {
+        href: "#deleteBook",
+        text: "Delete a Book",
+      },
+    ],
+  },
+];
+---
+
+<nav class="hidden md:block pr-10">
+  {
+    data.map((item) => (
+      <ItemNavDoc title={item.title} links={item.links} />
+    ))
+  }
+</nav>
