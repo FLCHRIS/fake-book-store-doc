@@ -1,0 +1,371 @@
+---
+import { Code } from "astro:components";
+import Table from "./Table.astro";
+import Info from "../icons/Info.astro";
+
+const dataTable = {
+  title: "Book schema",
+  id: "bookSchema",
+  tableItems: [
+    {
+      key: "_id",
+      type: "string",
+      description: "The id of the book.",
+    },
+    {
+      key: "name",
+      type: "string",
+      description: "The name of the book.",
+    },
+    {
+      key: "description",
+      type: "string",
+      description: "Brief information about the book.",
+    },
+    {
+      key: "number_of_pages",
+      type: "number",
+      description: "The number of pages in the book.",
+    },
+    {
+      key: "language",
+      type: "string",
+      description: "Language in which the book is available.",
+    },
+    {
+      key: "publication_date",
+      type: "date",
+      description: "Book publication date.",
+    },
+    {
+      key: "dimensions",
+      type: "string",
+      description: "Book dimensions.",
+    },
+    {
+      key: "image",
+      type: "string",
+      description: "Link to the image of the book.",
+    },
+    {
+      key: "price",
+      type: "number",
+      description: "Number of pages in the book",
+    },
+    {
+      key: "author",
+      type: "string",
+      description: "Name of the author of the book.",
+    },
+    {
+      key: "category",
+      type: "object",
+      description: "ID and name of the book category.",
+    },
+  ],
+};
+
+const requestAllBooks = `fetch('https://fake-book-store-api.onrender.com/api/books')
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleAllBooks = `[
+  {
+    "category": {
+      "id": "65a86faecc61cd97ff280d42",
+      "name": "Fantasy"
+    },
+    "_id": "65a9a8ab22d2eb408ca77c8c",
+    "name": "When the Moon Hatched",
+    "description": "The Creators did not expect their beloved dragons to sail skyward upon their end. To curl into balls just beyond gravity’s grip, littering the sky with tombstones. With moons.",
+    "number_of_pages": 730,
+    "language": "English",
+    "publication_date": "2024-01-13T00:00:00.000Z",
+    "dimensions": "5 x 1.6 x 8 inches",
+    "image": "https://fake-book-store-api.onrender.com/images/P1zL9oX.jpg",
+    "price": 5.99,
+    "author": "Sarah A. Parker"
+  },
+  // ...
+]
+`;
+
+const requestSingleBook = `fetch('https://fake-book-store-api.onrender.com/api/books/65a9a8ab22d2eb408ca77c8c')
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleSingleBook = `{
+  "category": {
+    "id": "65a86faecc61cd97ff280d42",
+    "name": "Fantasy"
+  },
+  "_id": "65a9a8ab22d2eb408ca77c8c",
+  "name": "When the Moon Hatched",
+  "description": "The Creators did not expect their beloved dragons to sail skyward upon their end. To curl into balls just beyond gravity’s grip, littering the sky with tombstones. With moons.",
+  "number_of_pages": 730,
+  "language": "English",
+  "publication_date": "2024-01-13T00:00:00.000Z",
+  "dimensions": "5 x 1.6 x 8 inches",
+  "image": "https://fake-book-store-api.onrender.com/images/P1zL9oX.jpg",
+  "price": 5.99,
+  "author": "Sarah A. Parker"
+}
+`;
+
+const requestAddBook = `fetch('https://fake-book-store-api.onrender.com/api/books', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'Your token'
+  },
+  body: JSON.stringify({
+    name: 'Example',
+    description: 'Example',
+    number_of_pages: 464,
+    language: 'English',
+    publication_date: '2024-01-14T06:00:00.000Z',
+    dimensions: '5 x 1.16 x 8 inches',
+    image: 'httts:example.com/image/example.jpg',
+    price: 15.29,
+    author: 'Example',
+    category: {
+      id: '65a86faecc61cd97ff280d43',
+      name: 'Science fiction'
+    }
+})
+})
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleAddBook = `{
+  "name": "Example",
+  "description": "Example",
+  "number_of_pages": 464,
+  "language": "English",
+  "publication_date": "2024-01-14T06:00:00.000Z",
+  "dimensions": "5 x 1.16 x 8 inches",
+  "image": "httts:example.com/image/example.jpg",
+  "price": 15.29,
+  "author": "Example",
+  "category": {
+    "id": "65a86faecc61cd97ff280d43",
+    "name": "Science fiction"
+  },
+  "_id": "65baf5ce32bb786591b4d255"
+}
+`;
+
+const requestUpdateBook = `fetch('https://fake-book-store-api.onrender.com/api/books/65a9a8ab22d2eb408ca77c8c', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'Your token'
+  },
+  body: JSON.stringify({
+    name: 'When the Moon Hatched',
+    description: 'The Creators did not expect their beloved dragons to sail skyward upon their end. To curl into balls just beyond gravity’s grip, littering the sky with tombstones. With moons.',
+    number_of_pages: 730,
+    language: 'English',
+    publication_date: '2024-01-13T00:00:00.000Z',
+    dimensions: '5 x 1.6 x 8 inches',
+    image: 'https://fake-book-store-api.onrender.com/images/P1zL9oX.jpg',
+    price: 10.99,
+    author: 'Sarah A. Parker',
+    category: {
+      id: '65a86faecc61cd97ff280d42',
+      name: 'Fantasy'
+    }
+})
+})
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleUpdateBook = `{
+  "category": {
+    "id": "65a86faecc61cd97ff280d42",
+    "name": "Fantasy"
+  },
+  "_id": "65a9a8ab22d2eb408ca77c8c",
+  "name": "When the Moon Hatched",
+  "description": "The Creators did not expect their beloved dragons to sail skyward upon their end. To curl into balls just beyond gravity’s grip, littering the sky with tombstones. With moons.",
+  "number_of_pages": 730,
+  "language": "English",
+  "publication_date": "2024-01-13T00:00:00.000Z",
+  "dimensions": "5 x 1.6 x 8 inches",
+  "image": "https://fake-book-store-api.onrender.com/images/P1zL9oX.jpg",
+  "price": 10.99,
+  "author": "Sarah A. Parker"
+}
+`;
+
+const requestDeleteBook = `fetch('https://fake-book-store-api.onrender.com/api/books/65a9a8ab22d2eb408ca77c8c', {
+  method: 'DELETE',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'Your token'
+  }
+})
+  .then(res => console.log(res))
+  .catch(error => console.error(error))
+`;
+
+---
+
+<section class="mt-10">
+  <div>
+    <h2 class="text-white font-medium text-2xl" id="book">Book</h2>
+    <p class="mt-2 text-neutral-400">
+      There are a total of 40 books in the database.
+    </p>
+    <p class="mt-2 text-neutral-400">
+      <Info class="size-5 inline"/>
+      To add, delete and update a book you must be authenticated and to get your token you must 
+      <a href="#" class="font-semibold bg-gradient-to-bl from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+        Log in
+      </a>
+      . To do this you can use one of the users obtained from the request
+      <a href="#getAllUser" class="font-semibold bg-gradient-to-bl from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+        Get all users
+      </a>.
+    </p>
+    <Table
+      title={dataTable.title}
+      tableItems={dataTable.tableItems}
+      id={dataTable.id}
+    />
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="getAllBook">
+      Get all books
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can access the list of books by using the
+      <Code code="/books" lang="http" inline />
+       endpoint.
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code
+        code={requestAllBooks}
+        lang="js"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleAllBooks}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="getSingleBook">
+      Get a single book
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can get a single user by adding the id as a parameter:
+      <Code code="/books/:id" lang="http" inline />
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code
+        code={requestSingleBook}
+        lang="js"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleSingleBook}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="AddBook">
+      Add new book
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can add a book using the
+      <Code code={`/books`} lang="http" inline />
+      endpoint.
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code code={requestAddBook} lang="js" theme="material-theme-ocean" wrap />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleAddBook}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="text-neutral-400 mt-3">
+      <Info class="size-5 inline"/>
+      If you send a new book, it is not added to the database, it will only
+      return a new book with its unique ID.
+    </p>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="updateBook">
+      Update a book
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can update a book using the 
+      <Code code="/books" lang="http" inline />
+      endpoint passing the book object and its
+      <Code code="/id" lang="http" inline />
+      .
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code code={requestUpdateBook} lang="js" theme="material-theme-ocean" wrap />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleUpdateBook}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="text-neutral-400 mt-3">
+      <Info class="size-5 inline"/>
+      If you submit a book, it is not edited in the database, it will just return the book with the updated data.
+    </p>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="deleteBook">
+      Delete a book
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can delete a book by adding the id as a parameter: 
+      <Code code="/books/:id" inline />
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code code={requestDeleteBook} lang="js" theme="material-theme-ocean" wrap />
+    </div>
+    <p class="text-neutral-400 mt-3">
+      <Info class="size-5 inline"/>
+      It does not return any message, only a 
+      <Code code="204 response" inline />
+      code if you were able to delete the book.
+    </p>
+    <p class="text-neutral-400">
+      <Info class="size-5 inline"/>
+      If you submit a book ID, it is not removed from the database.
+    </p>
+  </div>
+</section>
