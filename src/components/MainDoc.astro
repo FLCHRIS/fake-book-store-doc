@@ -1,0 +1,24 @@
+---
+import BookSection from "./BookSection.astro";
+import NavDoc from "./NavDoc.astro";
+import UserSection from "./UserSection.astro";
+
+---
+
+<main class="max-w-4xl mx-auto px-5 py-12 md:px-7 md:py-16 md:grid md:grid-flow-col">
+  <NavDoc />
+  <div>
+    <h1 class="text-4xl font-bold text-white">
+      Documentation
+    </h1>
+    <p class="mt-5 text-neutral-400">
+      This documentation will help you get familiar with the resources of the 
+      <span class="font-semibold bg-gradient-to-bl from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+        fake book store API
+      </span>
+      and show you how to make different queries.
+    </p>
+    <UserSection />
+    <BookSection />
+  </div>
+</main>
