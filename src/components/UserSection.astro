@@ -1,0 +1,306 @@
+---
+import { Code } from "astro:components";
+import Table from "./Table.astro";
+import Info from "../icons/Info.astro";
+
+const dataTable = {
+  title: "User schema",
+  id: "userSchema",
+  tableItems: [
+    {
+      key: "_id",
+      type: "string",
+      description: "The id of the user.",
+    },
+    {
+      key: "name",
+      type: "Object",
+      description: "The name of the user.",
+    },
+    {
+      key: "username",
+      type: "string",
+      description: "The username of the user.",
+    },
+    {
+      key: "email",
+      type: "string",
+      description: "The email of the user.",
+    },
+    {
+      key: "password",
+      type: "string",
+      description: "The password of the user.",
+    },
+  ],
+};
+
+const requestGetAllUsers = `fetch('https://fake-book-store-api.onrender.com/api/users')
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleGetAllUsers = `[
+  {
+    "name": {
+      "firstname": "Alice",
+      "lastname": "Smith"
+    },
+    "_id": "65a872321c016f2630b07305",
+    "username": "alice_smith",
+    "email": "alice_27@gmail.com",
+    "password": "8i4nhcbg"
+  }
+  // ...
+]
+`;
+
+const requestGetASingleUser = `fetch('https://fake-book-store-api.onrender.com/api/users/65a872321c016f2630b07305')
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleGetASingleUser = `{
+  "name": {
+    "firstname": "Alice",
+    "lastname": "Smith"
+  },
+  "_id": "65a872321c016f2630b07305",
+  "username": "alice_smith",
+  "email": "alice_27@gmail.com",
+  "password": "8i4nhcbg"
+}
+`;
+
+const requestAddUser = `fetch('https://fake-book-store-api.onrender.com/api/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'Your token'
+  },
+  body: JSON.stringify({
+    username: 'liam_19',
+    email: 'liam@gmail.com',
+    password: 'jduhfy76',
+    name: {
+      firstname: 'Liam',
+      lastname: 'Jones'
+    }
+  })
+})
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleAddUser = `{
+    "username": "liam_19",
+    "email": "liam@gmail.com",
+    "password": "jduhfy76",
+    "name": {
+        "firstname": "Liam",
+        "lastname": "Jones"
+    },
+    "_id": "65bab939f7c9b42a06423594"
+}
+`;
+
+const requestUpdateUser = `fetch('https://fake-book-store-api.onrender.com/api/users/65a872321c016f2630b07305', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'Your token'
+  },
+  body: JSON.stringify({
+    username: 'Alice_smith_example',
+    email: 'alice_27@gmail.com',
+    password: '8i4nhcbg',
+    name: {
+      firstname: 'Alice',
+      lastname: 'Smith'
+    }
+  })
+})
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleUpdateUser = `{
+  "name": {
+    "firstname": "Alice",
+    "lastname": "Smith"
+  },
+  "_id": "65a872321c016f2630b07305",
+  "username": "Alice_smith_example",
+  "email": "alice_27@gmail.com",
+  "password": "8i4nhcbg"
+}
+`;
+
+const requestDeleteUser= `fetch('https://fake-book-store-api.onrender.com/api/users/65a872321c016f2630b07305', {
+  method: 'DELETE',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'Your token'
+  }
+})
+  .then(res => console.log(res))
+  .catch(error => console.error(error))
+`;
+---
+
+<section class="mt-10">
+  <div>
+    <h2 class="text-white font-medium text-2xl" id="user">User</h2>
+    <p class="mt-2 text-neutral-400">
+      There are a total of 5 users in the database.
+    </p>
+    <p class="mt-2 text-neutral-400">
+      <Info class="size-5 inline"/>
+      To add, delete and update a user you must be authenticated and to get your token you must 
+      <a href="#" class="font-semibold bg-gradient-to-bl from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+        Log in
+      </a>
+      . To do this you can use one of the users obtained from the request
+      <a href="#getAllUser" class="font-semibold bg-gradient-to-bl from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+        Get all users
+      </a>
+      .
+    </p>
+    <Table
+      title={dataTable.title}
+      tableItems={dataTable.tableItems}
+      id={dataTable.id}
+    />
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="getAllUser">
+      Get all users
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can access the list of users by using the
+      <Code code="/users" lang="http" inline />
+       endpoint.
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code
+        code={requestGetAllUsers}
+        lang="js"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleGetAllUsers}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="getASingleUser">
+      Get a single user
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can get a single user by adding the id as a parameter:
+      <Code code="/users/:id" lang="http" inline />
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code
+        code={requestGetASingleUser}
+        lang="js"
+        theme="material-theme-ocean"
+        wrap
+
+      />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleGetASingleUser}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="AddUser">
+      Add new user
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can add a user using the
+      <Code code={`/users`} lang="http" inline />
+      endpoint.
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code code={requestAddUser} lang="js" theme="material-theme-ocean" wrap />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleAddUser}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="text-neutral-400 mt-3">
+      <Info class="size-5 inline"/>
+      If you send a new user, it is not added to the database, it will only
+      return a new user with its unique ID.
+    </p>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="updateUser">
+      Update a user
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can update a user using the 
+      <Code code="/users" lang="http" inline />
+      endpoint passing the user object and its
+      <Code code="/id" lang="http" inline />
+      .
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code code={requestUpdateUser} lang="js" theme="material-theme-ocean" wrap />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleUpdateUser}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="text-neutral-400 mt-3">
+      <Info class="size-5 inline"/>
+      If you submit a user, it is not edited in the database, it will just return the user with the updated data.
+    </p>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="deleteUser">
+      Delete a user
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can delete a user by adding the id as a parameter: 
+      <Code code="/users/:id" inline />
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code code={requestDeleteUser} lang="js" theme="material-theme-ocean" wrap />
+    </div>
+    <p class="text-neutral-400 mt-3">
+      <Info class="size-5 inline"/>
+      It does not return any message, only a 
+      <Code code="204" inline />
+      response code if you were able to delete the user.
+    </p>
+    <p class="text-neutral-400">
+      <Info class="size-5 inline"/>
+      If you submit a user ID, it is not removed from the database.
+    </p>
+  </div>
+</section>
