@@ -1,0 +1,36 @@
+---
+interface ILink {
+  href: string;
+  text: string;
+}
+
+interface Props {
+  title: ILink;
+  links: ILink[];
+}
+
+const { title, links } = Astro.props as Props;
+---
+
+<ul class="mb-3">
+  <li class="mb-2">
+    <a
+      href={title.href}
+      class="text-white text-xl font-semibold hover:bg-gradient-to-bl hover:from-cyan-500 hover:to-blue-500 hover:bg-clip-text hover:text-transparent transition-colors"
+    >
+      {title.text}
+    </a>
+  </li>
+  {
+    links.map((link) => (
+      <li class="ml-2 mb-1">
+        <a
+          href={link.href}
+          class="text-neutral-400 font-medium hover:bg-gradient-to-bl hover:from-cyan-500 hover:to-blue-500 hover:bg-clip-text hover:text-transparent transition-colors"
+        >
+          {link.text}
+        </a>
+      </li>
+    ))
+  }
+</ul>
