@@ -1,0 +1,137 @@
+---
+import { Code } from "astro:components";
+import Table from "./Table.astro";
+
+const dataTable = {
+  title: "Category schema",
+  id: "categorySchema",
+  tableItems: [
+    {
+      key: "_id",
+      type: "string",
+      description: "The id of the category.",
+    },
+    {
+      key: "name",
+      type: "string",
+      description: "The name of the category.",
+    },
+  ],
+}
+
+const requestCategory = `fetch('https://fake-book-store-api.onrender.com/api/categories')
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleCategory = `[
+  {
+    "_id": "65a86faecc61cd97ff280d43",
+    "name": "Science fiction"
+  },
+  {
+    "_id": "65a86faecc61cd97ff280d42",
+    "name": "Fantasy"
+  },
+  {
+    "_id": "65a86faecc61cd97ff280d44",
+    "name": "Suspense"
+  },
+  // ...
+]
+`;
+
+const requestBookCategory = `fetch('https://fake-book-store-api.onrender.com/api/categories/65a86faecc61cd97ff280d43/books')
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
+const codeExampleBookCategory = `[
+  {
+    "category": {
+      "id": "65a86faecc61cd97ff280d43",
+      "name": "Science fiction"
+    },
+    "_id": "65a9ae1422d2eb408ca77ca4",
+    "name": "The Bad Weather Friend",
+    "description": "Benny Catspaw’s perpetually sunny disposition is tested when he loses his job, his reputation, his fiancée, and his favorite chair. He’s not paranoid. Someone is out to get him. He just doesn’t know who or why. Then Benny receives an inheritance from an uncle he’s never heard of: a giant crate and a video message. All will be well in time.",
+    "number_of_pages": 380,
+    "language": "English",
+    "publication_date": "2024-02-01T00:00:00.000Z",
+    "dimensions": "6 x 1 x 9 inches",
+    "image": "https://fake-book-store-api.onrender.com/images/X2vP8kY.jpg",
+    "price": 20.06,
+    "author": "Dean Koontz"
+  },
+  // ...
+]
+`;
+---
+
+<section class="mt-10">
+  <div>
+    <h2 class="text-white font-medium text-2xl" id="category">Category</h2>
+    <p class="mt-2 text-neutral-400">
+      There are a total of 7 categories in the database.
+    </p>
+    <Table
+      title={dataTable.title}
+      tableItems={dataTable.tableItems}
+      id={dataTable.id}
+    />
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="getAllCategory">
+      Get all categories
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can access the list of categories by using the
+      <Code code="/categories" lang="http" inline />
+       endpoint.
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code
+        code={requestCategory}
+        lang="js"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleCategory}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="getBookCategory">
+      Get books by category
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      You can get all the books by their category by passing the category 
+      <Code code="/categories/:id/books" lang="http" inline />
+      .
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code
+        code={requestBookCategory}
+        lang="js"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleBookCategory}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+  </div>
+</section>
