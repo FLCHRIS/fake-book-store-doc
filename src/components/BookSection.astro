@@ -213,6 +213,11 @@ const requestDeleteBook = `fetch('https://fake-book-store-api.onrender.com/api/b
   .catch(error => console.error(error))
 `;
 
+const requestFilterBooks = `fetch('https://fake-book-store-api.onrender.com/api/books?offset=0&limit=5')
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error))
+`;
 ---
 
 <section class="mt-10">
@@ -224,7 +229,7 @@ const requestDeleteBook = `fetch('https://fake-book-store-api.onrender.com/api/b
     <p class="mt-2 text-neutral-400">
       <Info class="size-5 inline"/>
       To add, delete and update a book you must be authenticated and to get your token you must 
-      <a href="#" class="font-semibold bg-gradient-to-bl from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+      <a href="#login" class="font-semibold bg-gradient-to-bl from-cyan-500 to-blue-500 bg-clip-text text-transparent">
         Log in
       </a>
       . To do this you can use one of the users obtained from the request
@@ -250,6 +255,32 @@ const requestDeleteBook = `fetch('https://fake-book-store-api.onrender.com/api/b
     <div class="mt-5 overflow-hidden rounded-lg">
       <Code
         code={requestAllBooks}
+        lang="js"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+    <p class="mt-5 text-white">Response</p>
+    <div class="mt-2 overflow-hidden rounded-lg">
+      <Code
+        code={codeExampleAllBooks}
+        lang="json"
+        theme="material-theme-ocean"
+        wrap
+      />
+    </div>
+  </div>
+  <div class="mt-10">
+    <h2 class="text-white font-medium text-2xl" id="filterBook">
+      Pagination
+    </h2>
+    <p class="mt-2 text-neutral-400">
+      To fetch the first page of entries in a collection, the API needs to be called with the offset set to 0 and the limit the products that you want in the response.
+      <Code code="`?limit=5&offset=0`" lang="http" inline />
+    </p>
+    <div class="mt-5 overflow-hidden rounded-lg">
+      <Code
+        code={requestFilterBooks}
         lang="js"
         theme="material-theme-ocean"
         wrap
